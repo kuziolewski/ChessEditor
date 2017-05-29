@@ -22,5 +22,5 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^chesseditor/', include('chesseditor.urls')),
+    url(r'', include('chesseditor.urls')),
 ]
