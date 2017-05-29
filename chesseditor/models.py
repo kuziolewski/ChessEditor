@@ -44,7 +44,7 @@ class Tournament(models.Model):
 
 class Organizer(models.Model):
     organizer_id = models.AutoField(primary_key=True)  # unique and null=false
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=30)
     tournament = models.ManyToManyField(Tournament)
 
     def __str__(self):
@@ -63,9 +63,8 @@ class ChessParty(models.Model):
             .format(white=self.white, black=self.black, chessparty_id=self.chessparty_id)
 
 
-class Move(models.Model):
-    move_id = models.AutoField(primary_key=True)
-    move_number = models.PositiveIntegerField(default=1)
+
+class States(models.Model):
     party = models.ForeignKey(ChessParty)
     chessman = (
         ('a1_w_rook', 'biała wieża a1'), ('h1_w_rook', 'biała wieża h1'),
@@ -84,8 +83,7 @@ class Move(models.Model):
         ('c7_b_pawn', 'czarny pion c7'), ('d7_b_pawn', 'czarny pion d7'),
         ('e7_b_pawn', 'czarny pion e7'), ('f7_b_pawn', 'czarny pion f7'),
         ('g7_b_pawn', 'czarny pion g7'), ('h7_b_pawn', 'czarny pion h7'),
-
-    )
+     )
     chessman = models.CharField(max_length=30, choices=chessman, default='pionek')
     mymove = []
     for a, b in itertools.product('abcdefgh', '12345678'):
@@ -94,37 +92,13 @@ class Move(models.Model):
     mytuple = tuple(mymove)
     move = models.CharField(max_length=2, choices=mytuple, default='a1')
 
+
+class Moves(States):
+    move_id = models.AutoField(primary_key=True)
+    move_number = models.PositiveIntegerField(default=1)
+
     def __str__(self):
         return "ruch nr:{move_number} partia pomiędzy:{party}" \
             .format(move_number=self.move_number, party=self.party)
 
-#here good idea will be inheritance, but for this moment it will be compleceted code
-#mayby in future i implement this
-    class states(models.Model):
-        party = models.ForeignKey(ChessParty)
-        chessman = (
-            ('a1_w_rook', 'biała wieża a1'), ('h1_w_rook', 'biała wieża h1'),
-            ('b1_w_knight', 'biały skoczek b1'), ('g1_w_knight', 'biały skoczek g1'),
-            ('c1_w_bishop', 'biały goniec c1'), ('f1_w_bishop', 'biały goniec f1'),
-            ('d1_w_queen', 'biały hetman d1'), ('e1_w_king', 'biały król e1'),
-            ('a2_w_pawn', 'biały pion a2'), ('b2_w_pawn', 'biały pion b2'),
-            ('c2_w_pawn', 'biały pion c2'), ('d2_w_pawn', 'biały pion d2'),
-            ('e2_w_pawn', 'biały pion e2'), ('f2_w_pawn', 'biały pion f2'),
-            ('g2_w_pawn', 'biały pion g2'), ('h2_w_pawn', 'biały pion h2'),
-            ('a8_b_rook', 'czarna wieża a1'), ('h8_b_rook', 'czarna wieża h8'),
-            ('b8_b_knight', 'czarny skoczek b1'), ('g8_b_knight', 'czarny skoczek g8'),
-            ('c8_b_knight', 'czarny goniec c1'), ('f8_b_bishop', 'czarny goniec f8'),
-            ('d8_b_queen', 'czarny hetman d1'), ('e8_b_king', 'czarny król e8'),
-            ('a7_b_pawn', 'czarny pion a7'), ('b7_b_pawn', 'czarny pion b7'),
-            ('c7_b_pawn', 'czarny pion c7'), ('d7_b_pawn', 'czarny pion d7'),
-            ('e7_b_pawn', 'czarny pion e7'), ('f7_b_pawn', 'czarny pion f7'),
-            ('g7_b_pawn', 'czarny pion g7'), ('h7_b_pawn', 'czarny pion h7'),
 
-        )
-        chessman = models.CharField(max_length=30, choices=chessman, default='pionek')
-        mymove = []
-        for a, b in itertools.product('abcdefgh', '12345678'):
-            name = a + b
-            mymove.append((name, name))
-        mytuple = tuple(mymove)
-        move = models.CharField(max_length=2, choices=mytuple, default='a1')

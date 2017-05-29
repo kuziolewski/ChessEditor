@@ -1,7 +1,7 @@
 from django.contrib import  admin
 
-from .models import Player, Arbiter, Organizer, Move, ChessParty, Tournament
-# Register your models here.
+from .models import Player, Arbiter, Organizer, Moves, ChessParty, Tournament, States
+# Register your models here.e
 
 
-admin.site.register([Player, Arbiter, Organizer, Move, ChessParty, Tournament])
+admin.site.register([Player, Arbiter, Organizer, Moves, ChessParty, Tournament, States])
