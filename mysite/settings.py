@@ -25,7 +25,9 @@ SECRET_KEY = 'jt==4b=zp!ol26-w^3fg4jkx5d1^a+x3gy2(hz+i-9*p3j*+1('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'chesseditor.pythonanywhere.com',
+]
 
 
 # Application definition
