@@ -1,0 +1,15 @@
+{% extends 'chesseditor/base.html' %}
+
+{% block content %}
+<div>
+   <h1> {{ tournament.name_of_tournament }} </h1>
+    <p><h3><b>Rozgrywki:</b></h3></p><br />
+    {% for chessparty in chesspartys %}
+    <div>
+        <p><h4>{{ chessparty.white }} VS {{ chessparty.black }}</h4></p>
+        <p>sędzia: {{ chessparty.arbiter }}</p>
+        <br />
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

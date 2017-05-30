@@ -59,8 +59,8 @@ class ChessParty(models.Model):
     tournament = models.ForeignKey(Tournament)
 
     def __str__(self):
-        return "{white} vs {black} partia nr:{chessparty_id}"\
-            .format(white=self.white, black=self.black, chessparty_id=self.chessparty_id)
+        return "{white} vs {black}"\
+            .format(white=self.white, black=self.black)
 
 
 

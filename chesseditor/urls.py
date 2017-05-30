@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^show/', views.show, name='show'),
     url(r'^edit/', views.edit, name='edit'),
+    url(r'^turniej/(?P<pk>[0-9]+)/$', views.turniej, name='turniej'),
 ]
