@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Arbiter, Tournament, Player, Organizer, States, Moves, ChessParty
+from .models import Arbiter, Tournament, Player, Organizer, State, Moves, ChessParty
 
 
 def index(request):
@@ -9,9 +9,10 @@ def index(request):
 
 def turniej(request, pk):
     tournament = get_object_or_404(Tournament, pk=pk)
-    chesspartys = ChessParty.objects.filter(tournament=tournament)
+    chessparty = ChessParty.objects.filter(tournament=tournament)
     moves = Moves.objects.all()
-    return render(request, 'chesseditor/turniej.html', {'tournament': tournament, 'chesspartys': chesspartys, 'moves': moves})
+    return render(request, 'chesseditor/turniej.html', {'tournament': tournament,\
+                                                        'chesspartys': chessparty, 'moves': moves})
 
 
 def rozgrywka(request, pk):
@@ -19,3 +20,12 @@ def rozgrywka(request, pk):
     moves = Moves.objects.filter(party=chessparty)
     return render(request, 'chesseditor/rozgrywka.html', {'chessparty': chessparty, 'moves': moves})
 
+
+def edytor(request, pk):
+    tournament = get_object_or_404(Tournament, pk=pk)
+    player = Player.objects.all()
+    arbiter = Arbiter.objects.all()
+    state = State.objects.all()
+    organizer = Organizer.objects.all()
+    return render(request, 'chesseditor/edytor.html', {'tournament': tournament, 'player': player, 'arbiter': arbiter,\
+                                                       'state': state, 'organizer': organizer})

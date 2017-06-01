@@ -3,13 +3,11 @@
 {% block content %}
 <p><hr /><h3><b>Turnieje:</b></h3></p>
 {% for tournament in tournaments %}
-    <div>
         <p><a href="{% url 'turniej' pk=tournament.pk %}">{{ tournament.name_of_tournament }}</a></p>
         <p>liczba uczestników: {{ tournament.max_nb_of_players }}</p>
         <p>data startu: {{ tournament.date_of_start }}</p>
         <p>data zakończenia: {{ tournament.date_of_end }}</p>
         <p>miejsce turnieju: {{ tournament.max_nb_of_players }}</p>
-         <hr /> <br />
-    </div>
+        <hr /> <br />
 {% endfor %}
 {% endblock content %}

@@ -2,15 +2,22 @@
 
 {% block content %}
 <div>
-    <p><h4>{{ chessparty.white }} VS {{ chessparty.black }}</h4></p>
-    <p>Ruchy w partii:</p>
+    <p><h4>{{ chessparty.white }} VS {{ chessparty.black }} (biały vs czarny)</h4></p>
+    <p>Ruchy w partii nr:{{ chessparty.chessparty_id }}</p>
     <hr>
 </div>
 {% for move in moves %}
     <div>
+        <!--
         <p>ruch numer:      {{ move.move_number }} </p>
         <p>figura szachowa: {{ move.get_chessman_display }}</p>
-        <hr>
+        <p>na pole: {{ move.move }}
+        {% cycle 'biały' 'czarny' %}</p>
+        -->
+        <p>ruch numer:      {{ move.move_number }}  </p>
+        <p>{{ move.get_chessman_display }} na {{ move.move }}</p>
+        <hr />
     </div>
 {% endfor %}
+<a href="{{request.META.HTTP_REFERER}}" class="btn btn-info">Wstecz</a>
 {% endblock content %}

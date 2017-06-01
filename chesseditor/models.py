@@ -59,12 +59,12 @@ class ChessParty(models.Model):
     tournament = models.ForeignKey(Tournament)
 
     def __str__(self):
-        return "{white} vs {black}"\
-            .format(white=self.white, black=self.black)
+        return "{chessparty_id}"\
+            .format(chessparty_id=self.chessparty_id)
 
 
-class States(models.Model):
-    party = models.ForeignKey(ChessParty)
+class State(models.Model):
+    party = models.ForeignKey(ChessParty, default='0')
     chessman = (
         ('a1_w_rook', 'biała wieża a1'), ('h1_w_rook', 'biała wieża h1'),
         ('b1_w_knight', 'biały skoczek b1'), ('g1_w_knight', 'biały skoczek g1'),
@@ -90,9 +90,14 @@ class States(models.Model):
         mymove.append((name, name))
     mytuple = tuple(mymove)
     move = models.CharField(max_length=2, choices=mytuple, default='a1')
+    is_capture = models.BooleanField(default=False)
+    capture_choice = (
+        ('true', 'zbity'),
+        ('false', 'nie zbity'),
+    )
+    is_capture = models.CharField(max_length=9, choices=capture_choice, default='false')
 
-
-class Moves(States):
+class Moves(State):
     move_id = models.AutoField(primary_key=True)
     move_number = models.PositiveIntegerField(default=1)
 

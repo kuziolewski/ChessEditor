@@ -4,9 +4,6 @@
     padding: 20px 20px 20px 40px;
 }
 
-.verticalLine {
-  border-left: thick solid #ff0000;
-}
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
     color: #ffffff;
@@ -37,4 +34,22 @@ hr {
        border: none;
        border-top: 1px solid #aaaaaa;
        border-bottom: 1px solid #ffffff;
+}
+
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
+
+.btn-info { border-color: #008ace;
+background-color: #008ace;
+}
+
+.btn-info:hover {
+border-color: #008ace;
+background-color: #008ace;
 }

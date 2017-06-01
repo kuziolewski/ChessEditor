@@ -1,19 +1,16 @@
 {% extends 'chesseditor/base.html' %}
 
 {% block content %}
-<div>
    <h1> {{ tournament.name_of_tournament }} </h1>
     <p><h3><b>Rozgrywki:</b></h3></p>
     <hr>
     {% if user.is_authenticated %}
-        <a href="/edit">Rozpocznij nową rogrywkę<br /><hr><br /></a>
+        <a href="{% url 'edytor' pk=tournament.pk %}">Rozpocznij nową rogrywkę<br /><hr><br /></a>
     {% endif %}
     {% for chessparty in chesspartys %}
-    <div>
         <p><a href="{% url 'rozgrywka'  pk=chessparty.pk %}">{{ chessparty.white }} VS {{ chessparty.black }}</a></p>
         <p>sędzia: {{ chessparty.arbiter }}</p>
         <hr><br />
-    </div>
     {% endfor %}
-</div>
+<a href="{% url 'index' %}" class="btn btn-info">Wstecz</a>
 {% endblock content %}
