@@ -1,0 +1,16 @@
+{% extends 'chesseditor/base.html' %}
+
+{% block content %}
+<div>
+    <p><h4>{{ chessparty.white }} VS {{ chessparty.black }}</h4></p>
+    <p>Ruchy w partii:</p>
+    <hr>
+</div>
+{% for move in moves %}
+    <div>
+        <p>ruch numer:      {{ move.move_number }} </p>
+        <p>figura szachowa: {{ move.get_chessman_display }}</p>
+        <hr>
+    </div>
+{% endfor %}
+{% endblock content %}

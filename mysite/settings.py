@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'chesseditor.pythonanywhere.com',
+    'localhost',
 ]
 
 

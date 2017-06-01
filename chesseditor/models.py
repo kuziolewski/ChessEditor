@@ -63,7 +63,6 @@ class ChessParty(models.Model):
             .format(white=self.white, black=self.black)
 
 
-
 class States(models.Model):
     party = models.ForeignKey(ChessParty)
     chessman = (
