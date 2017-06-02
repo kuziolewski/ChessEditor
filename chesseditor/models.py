@@ -63,7 +63,7 @@ class ChessParty(models.Model):
             .format(chessparty_id=self.chessparty_id)
 
 
-class State(models.Model):
+class OneMove(models.Model):
     party = models.ForeignKey(ChessParty, default='0')
     chessman = (
         ('a1_w_rook', 'biała wieża a1'), ('h1_w_rook', 'biała wieża h1'),
@@ -90,6 +90,13 @@ class State(models.Model):
         mymove.append((name, name))
     mytuple = tuple(mymove)
     move = models.CharField(max_length=2, choices=mytuple, default='a1')
+
+    class Meta:
+        abstract = True
+
+
+class State(OneMove):
+    state_id = models.PositiveIntegerField(default=0)
     is_capture = models.BooleanField(default=False)
     capture_choice = (
         ('true', 'zbity'),
@@ -97,7 +104,8 @@ class State(models.Model):
     )
     is_capture = models.CharField(max_length=9, choices=capture_choice, default='false')
 
-class Moves(State):
+
+class Moves(OneMove):
     move_id = models.AutoField(primary_key=True)
     move_number = models.PositiveIntegerField(default=1)
 

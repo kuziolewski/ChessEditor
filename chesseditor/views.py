@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Arbiter, Tournament, Player, Organizer, State, Moves, ChessParty
+from .forms import ChessPartyForm, GameForm
+from django.shortcuts import redirect
 
 
 def index(request):
@@ -9,10 +11,10 @@ def index(request):
 
 def turniej(request, pk):
     tournament = get_object_or_404(Tournament, pk=pk)
-    chessparty = ChessParty.objects.filter(tournament=tournament)
+    chesspartys = ChessParty.objects.filter(tournament=tournament)
     moves = Moves.objects.all()
     return render(request, 'chesseditor/turniej.html', {'tournament': tournament,\
-                                                        'chesspartys': chessparty, 'moves': moves})
+                                                        'chesspartys': chesspartys, 'moves': moves})
 
 
 def rozgrywka(request, pk):
@@ -23,9 +25,33 @@ def rozgrywka(request, pk):
 
 def edytor(request, pk):
     tournament = get_object_or_404(Tournament, pk=pk)
-    player = Player.objects.all()
-    arbiter = Arbiter.objects.all()
-    state = State.objects.all()
-    organizer = Organizer.objects.all()
-    return render(request, 'chesseditor/edytor.html', {'tournament': tournament, 'player': player, 'arbiter': arbiter,\
-                                                       'state': state, 'organizer': organizer})
+    players = Player.objects.all()
+    arbiters = Arbiter.objects.all()
+    organizers = Organizer.objects.all()
+    chesspartys = ChessParty.objects.all()
+    states = State.objects.all()
+    form = ChessPartyForm()
+    if request.method == "POST":
+        form = ChessPartyForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.tournament = tournament
+            post.save()
+            return redirect('gra', pk=post.pk)
+    return render(request, 'chesseditor/edytor.html', {'tournament': tournament, 'players': players, 'arbiters': arbiters,\
+                                                       'states': states, 'organizers': organizers, 'form': form,\
+                                                       'states': states, 'chesspartys': chesspartys})
+
+
+def gra(request, pk):
+    chessparty = get_object_or_404(ChessParty, pk=pk)
+    moves = Moves.objects.filter(party=chessparty)
+    if request.method == "POST":
+        form = GameForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.chesspaty = chessparty
+            post.save()
+    else:
+        form = GameForm()
+    return render(request, 'chesseditor/gra.html', {'chessparty': chessparty, 'moves': moves, 'form': form})
