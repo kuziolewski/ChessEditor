@@ -53,3 +53,30 @@ background-color: #008ace;
 border-color: #008ace;
 background-color: #008ace;
 }
+
+.chessboard {
+    width: 320px;
+    height: 320px;
+    margin: 10px;
+
+}
+.black {
+    float: left;
+    width: 40px;
+    height: 40px;
+    background-color: #999;
+      font-size:25px;
+    text-align:center;
+    display: table-cell;
+    vertical-align:middle;
+}
+.white {
+    float: left;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    font-size:25px;
+    text-align:center;
+    display: table-cell;
+    vertical-align:middle;
+}

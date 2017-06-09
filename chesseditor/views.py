@@ -46,6 +46,7 @@ def edytor(request, pk):
 def gra(request, pk):
     chessparty = get_object_or_404(ChessParty, pk=pk)
     moves = Moves.objects.filter(party=chessparty)
+    states = State.objects.filter(party=chessparty)
     if request.method == "POST":
         form = GameForm(request.POST)
         if form.is_valid():
@@ -54,4 +55,4 @@ def gra(request, pk):
             post.save()
     else:
         form = GameForm()
-    return render(request, 'chesseditor/gra.html', {'chessparty': chessparty, 'moves': moves, 'form': form})
+    return render(request, 'chesseditor/gra.html', {'chessparty': chessparty, 'moves': moves, 'form': form, 'states': states})

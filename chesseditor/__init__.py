@@ -1,0 +1,1 @@
+default_app_config = 'chesseditor.apps.ChesseditorConfig'
