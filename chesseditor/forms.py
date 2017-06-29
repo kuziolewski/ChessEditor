@@ -6,13 +6,13 @@ class ChessPartyForm(forms.ModelForm):
 
     class Meta:
         model = ChessParty
-        fields = ('arbiter', 'white', 'black',)
+        fields = ('arbiter', 'white', 'black')
 
 
 class GameForm(forms.ModelForm):
 
     class Meta:
         model = Moves
-        fields = ('move_id', 'chessman', 'move', 'move_number', 'party')
+        fields = ('chessman', 'move', 'move_number', 'party')
 
 

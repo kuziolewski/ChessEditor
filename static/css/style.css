@@ -1,3 +1,4 @@
+
 .page-header {
     background-color: #008ace;
     margin-top: 0;
@@ -57,8 +58,8 @@ background-color: #008ace;
 .chessboard {
     width: 320px;
     height: 320px;
-    margin: 10px;
-
+    margin: 20px;
+    border: 15px solid #333;
 }
 .black {
     float: left;

@@ -1,6 +1,5 @@
 
 {% extends 'chesseditor/base.html' %}
-
 {% block content %}
 
 <p><h3>{{ chessparty }} </h3></p>
@@ -9,81 +8,89 @@
             {{ form.as_p }}
             <button type="submit" class="save btn btn-info">Save</button>
     </form>
-<iframe src="{% url 'rozgrywka'  pk=chessparty.pk %}" width="400" height="300", align="right"></iframe>
 
 <div class="chessboard">
 <!-- 1st -->
-<div class="white">&#9820;</div>
-<div class="black">&#9822;</div>
-<div class="white">&#9821;</div>
-<div class="black">&#9819;</div>
-<div class="white">&#9818;</div>
-<div class="black">&#9821;</div>
-<div class="white">&#9822;</div>
-<div class="black">&#9820;</div>
+<div class="white">{% for state in states %} {% if state.move == 'a8' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- a8 -->
+<div class="black">{% for state in states %} {% if state.move == 'b8' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- b8 -->
+<div class="white">{% for state in states %} {% if state.move == 'c8' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- c8 -->
+<div class="black">{% for state in states %} {% if state.move == 'd8' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- d8 -->
+<div class="white">{% for state in states %} {% if state.move == 'e8' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- e8 -->
+<div class="black">{% for state in states %} {% if state.move == 'f8' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- f8 -->
+<div class="white">{% for state in states %} {% if state.move == 'g8' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- g8 -->
+<div class="black">{% for state in states %} {% if state.move == 'h8' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- h8 -->
 <!-- 2nd -->
-<div class="black">&#9821;</div>
-<div class="white">&#9821;</div>
-<div class="black">&#9821;</div>
-<div class="white">&#9821;</div>
-<div class="black">&#9821;</div>
-<div class="white">&#9821;</div>
-<div class="black">&#9821;</div>
-<div class="white">&#9821;</div>
+<div class="black">{% for state in states %} {% if state.move == 'a7' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- a7 -->
+<div class="white">{% for state in states %} {% if state.move == 'b7' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- b7 -->
+<div class="black">{% for state in states %} {% if state.move == 'c7' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- c7 -->
+<div class="white">{% for state in states %} {% if state.move == 'd7' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- d7 -->
+<div class="black">{% for state in states %} {% if state.move == 'e7' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- e7 -->
+<div class="white">{% for state in states %} {% if state.move == 'f7' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- f7 -->
+<div class="black">{% for state in states %} {% if state.move == 'g7' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- g7 -->
+<div class="white">{% for state in states %} {% if state.move == 'h7' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- h7 -->
 <!-- 3th -->
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
+<div class="white">{% for state in states %} {% if state.move == 'a6' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- a6 -->
+<div class="black">{% for state in states %} {% if state.move == 'b6' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- b6 -->
+<div class="white">{% for state in states %} {% if state.move == 'c6' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- c6 -->
+<div class="black">{% for state in states %} {% if state.move == 'd6' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- d6 -->
+<div class="white">{% for state in states %} {% if state.move == 'e6' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- e6 -->
+<div class="black">{% for state in states %} {% if state.move == 'f6' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- f6 -->
+<div class="white">{% for state in states %} {% if state.move == 'g6' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- g6 -->
+<div class="black">{% for state in states %} {% if state.move == 'h6' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- h6 -->
 <!-- 4st -->
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
+<div class="black">{% for state in states %} {% if state.move == 'a5' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- a5 -->
+<div class="white">{% for state in states %} {% if state.move == 'b5' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- b5 -->
+<div class="black">{% for state in states %} {% if state.move == 'c5' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- c5 -->
+<div class="white">{% for state in states %} {% if state.move == 'd5' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- d5 -->
+<div class="black">{% for state in states %} {% if state.move == 'e5' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- e5 -->
+<div class="white">{% for state in states %} {% if state.move == 'f5' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- f5 -->
+<div class="black">{% for state in states %} {% if state.move == 'g5' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- g5 -->
+<div class="white">{% for state in states %} {% if state.move == 'h5' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- h5 -->
 <!-- 5th -->
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
+<div class="white">{% for state in states %} {% if state.move == 'a4' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- a4 -->
+<div class="black">{% for state in states %} {% if state.move == 'b4' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- b4 -->
+<div class="white">{% for state in states %} {% if state.move == 'c4' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div><!-- c4 -->
+<div class="black">{% for state in states %} {% if state.move == 'd4' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div><!-- d4 -->
+<div class="white">{% for state in states %} {% if state.move == 'e4' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div><!-- e4 -->
+<div class="black">{% for state in states %} {% if state.move == 'f4' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div><!-- f4 -->
+<div class="white">{% for state in states %} {% if state.move == 'g4' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div><!-- g4 -->
+<div class="black">{% for state in states %} {% if state.move == 'h4' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div><!-- h4 -->
 <!-- 6th -->
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
-<div class="black"></div>
-<div class="white"></div>
+<div class="black">{% for state in states %} {% if state.move == 'a3' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- a3 -->
+<div class="white">{% for state in states %} {% if state.move == 'b3' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- b3 -->
+<div class="black">{% for state in states %} {% if state.move == 'c3' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- c3 -->
+<div class="white">{% for state in states %} {% if state.move == 'd3' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- d3 -->
+<div class="black">{% for state in states %} {% if state.move == 'e3' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- e3 -->
+<div class="white">{% for state in states %} {% if state.move == 'f3' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- f3 -->
+<div class="black">{% for state in states %} {% if state.move == 'g3' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- g3 -->
+<div class="white">{% for state in states %} {% if state.move == 'h3' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- h3 -->
 <!-- 7th -->
-<div class="white">&#9817;</div>
-<div class="black">&#9817;</div>
-<div class="white">&#9817;</div>
-<div class="black">&#9817;</div>
-<div class="white">&#9817;</div>
-<div class="black">&#9817;</div>
-<div class="white">&#9817;</div>
-<div class="black">&#9817;</div>
+<div class="white">{% for state in states %} {% if state.move == 'a2' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- a2 -->
+<div class="black">{% for state in states %} {% if state.move == 'b2' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- b2 -->
+<div class="white">{% for state in states %} {% if state.move == 'c2' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- c2 -->
+<div class="black">{% for state in states %} {% if state.move == 'd2' %} {{ state.get_chessman_display}}{% endif %}{% endfor %}</div> <!-- d2 -->
+<div class="white">{% for state in states %} {% if state.move == 'e2' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- e2 -->
+<div class="black">{% for state in states %} {% if state.move == 'f2' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- f2 -->
+<div class="white">{% for state in states %} {% if state.move == 'g2' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- g2 -->
+<div class="black">{% for state in states %} {% if state.move == 'h2' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- h2 -->
 <!-- 8th -->
-<div class="black">&#9814;</div>
-<div class="white">&#9816;</div>
-<div class="black">&#9815;</div>
-<div class="white">&#9813;</div>
-<div class="black">&#9812;</div>
-<div class="white">&#9815;</div>
-<div class="black">&#9816;</div>
-<div class="white">&#9814;</div>
+<div class="black">{% for state in states %} {% if state.move == 'a1' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- a1 -->
+<div class="white">{% for state in states %} {% if state.move == 'b1' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- b1 -->
+<div class="black">{% for state in states %} {% if state.move == 'c1' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- c1 -->
+<div class="white">{% for state in states %} {% if state.move == 'd1' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- d1 -->
+<div class="black">{% for state in states %} {% if state.move == 'e1' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- e1 -->
+<div class="white">{% for state in states %} {% if state.move == 'f1' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- f1 -->
+<div class="black">{% for state in states %} {% if state.move == 'g1' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- g1 -->
+<div class="white">{% for state in states %} {% if state.move == 'h1' %} {{ state.get_chessman_display }}{% endif %}{% endfor %}</div> <!-- h1 -->
 </div>
-
+    <p>Ruchy w partii nr:{{ chessparty.chessparty_id }}</p>
+    <hr>
+</div>
+{% for move in moves %}
+    <div>
+        <p>ruch numer:      {{ move.move_number }}  </p>
+        <p>{{ move.get_chessman_display }} na {{ move.move }}</p>
+        <hr />
+     </div>
+ {% endfor %}
 {% endblock content %}

@@ -1,5 +1,5 @@
 
-
+from django.utils.safestring import mark_safe
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 import itertools
@@ -8,12 +8,12 @@ class Person(models.Model):
     name = models.CharField("Imię", max_length=20)
     surname = models.CharField("Nazwisko", max_length=50)
     date_of_birth = models.DateField("Data Urodzenia", auto_now=False, auto_now_add=False)
-    gender_choice = (
+    GENDER_CHOICES = (
        ('M', 'Mężczyzna'),
        ('F', 'Kobieta'),
        ('O', 'Inna'),
     )
-    gender = models.CharField("Płeć", max_length=1, choices=gender_choice, default='O')
+    gender = models.CharField("Płeć", max_length=1, choices=GENDER_CHOICES, default='O')
 
     class Meta:
         abstract = True
@@ -74,42 +74,78 @@ class ChessParty(models.Model):
     black = models.ForeignKey(Player, related_name='Czarne', verbose_name="Czarne figury")
     tournament = models.ForeignKey(Tournament, verbose_name="Nazwa turnieju")
 
+
     def __str__(self):
-        return "{white} vs {black}, ({tournament})"\
-            .format(black=self.black, white=self.white, tournament=self.tournament)
+        return "{white} vs {black}, ({tournament}),partia nr {chessparty_id}"\
+            .format(black=self.black, white=self.white, tournament=self.tournament, chessparty_id=self.chessparty_id)
 
     class Meta:
         verbose_name = "Partia"
         verbose_name_plural = "Partie"
 
+    def save(self, *args, **kwargs):
+        super(ChessParty, self).save(*args, **kwargs)
+        State.objects.create(party_id=self.pk, chessman='biała wieża a1', move='a1', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biała wieża h1', move='h1', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały skoczek b1', move='b1', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały skoczek g1', move='g1', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały goniec c1', move='c1', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały goniec f1', move='f1', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały hetman d1', move='d1', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały król e1', move='e1', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały pion a2', move='a2', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały pion b2', move='b2', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały pion c2', move='c2', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały pion d2', move='d2', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały pion e2', move='e2', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały pion f2', move='f2', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały pion g2', move='g2', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='biały pion h2', move='h2', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarna wieża a8', move='a8', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarna wieża h8', move='h8', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny skoczek b8', move='b8', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny skoczek g8', move='g8', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny goniec c8', move='c8', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny goniec f8', move='f8', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny hetman d8', move='d8', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny król e8', move='e8', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny pion a7', move='a7', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny pion b7', move='b7', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny pion c7', move='c7', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny pion d7', move='d7', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny pion e7', move='e7', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny pion f7', move='f7', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny pion g7', move='g7', state_id='0', is_capture='false')
+        State.objects.create(party_id=self.pk, chessman='czarny pion h7', move='h7', state_id='0', is_capture='false')
+
 
 class OneMove(models.Model):
-    party = models.ForeignKey(ChessParty, default='0', verbose_name="Partia")
-    chessman = (
-        ('a1_w_rook', 'biała wieża a1'), ('h1_w_rook', 'biała wieża h1'),
-        ('b1_w_knight', 'biały skoczek b1'), ('g1_w_knight', 'biały skoczek g1'),
-        ('c1_w_bishop', 'biały goniec c1'), ('f1_w_bishop', 'biały goniec f1'),
-        ('d1_w_queen', 'biały hetman d1'), ('e1_w_king', 'biały król e1'),
-        ('a2_w_pawn', 'biały pion a2'), ('b2_w_pawn', 'biały pion b2'),
-        ('c2_w_pawn', 'biały pion c2'), ('d2_w_pawn', 'biały pion d2'),
-        ('e2_w_pawn', 'biały pion e2'), ('f2_w_pawn', 'biały pion f2'),
-        ('g2_w_pawn', 'biały pion g2'), ('h2_w_pawn', 'biały pion h2'),
-        ('a8_b_rook', 'czarna wieża a1'), ('h8_b_rook', 'czarna wieża h8'),
-        ('b8_b_knight', 'czarny skoczek b1'), ('g8_b_knight', 'czarny skoczek g8'),
-        ('c8_b_knight', 'czarny goniec c1'), ('f8_b_bishop', 'czarny goniec f8'),
-        ('d8_b_queen', 'czarny hetman d1'), ('e8_b_king', 'czarny król e8'),
-        ('a7_b_pawn', 'czarny pion a7'), ('b7_b_pawn', 'czarny pion b7'),
-        ('c7_b_pawn', 'czarny pion c7'), ('d7_b_pawn', 'czarny pion d7'),
-        ('e7_b_pawn', 'czarny pion e7'), ('f7_b_pawn', 'czarny pion f7'),
-        ('g7_b_pawn', 'czarny pion g7'), ('h7_b_pawn', 'czarny pion h7'),
+    party = models.ForeignKey(ChessParty, default='0', verbose_name="Partia", blank=True, null=True)
+    CHESSMAN_CHOICES = (
+        ('biała wieża a1', mark_safe('&#9814;')), ('biała wieża h1', mark_safe('&#9814;')),
+        ('biały skoczek b1', mark_safe('&#9816;')), ('biały skoczek g1', mark_safe('&#9816;')),
+        ('biały goniec c1', mark_safe('&#9815;')), ('biały goniec f1', mark_safe('&#9815;')),
+        ('biały hetman d1', mark_safe('&#9813;')), ('biały król e1', mark_safe('&#9812;')),
+        ('biały pion a2', mark_safe('&#9817;')), ('biały pion b2', mark_safe('&#9817;')),
+        ('biały pion c2', mark_safe('&#9817;')), ('biały pion d2', mark_safe('&#9817;')),
+        ('biały pion e2', mark_safe('&#9817;')), ('biały pion f2', mark_safe('&#9817;')),
+        ('biały pion g2', mark_safe('&#9817;')), ('biały pion h2', mark_safe('&#9817;')),
+        ('czarna wieża a8', mark_safe('&#9820;')), ('czarna wieża h8', mark_safe('&#9820;')),
+        ('czarny skoczek b8', mark_safe('&#9822;')), ('czarny skoczek g8', mark_safe('&#9822;')),
+        ('czarny goniec c8', mark_safe('&#9821;')), ('czarny goniec f8', mark_safe('&#9821;')),
+        ('czarny hetman d8', mark_safe('&#9813;')), ('czarny król e8', mark_safe('&#9818;')),
+        ('czarny pion a7', mark_safe('&#9823;')), ('czarny pion b7', mark_safe('&#9823;')),
+        ('czarny pion c7', mark_safe('&#9823;')), ('czarny pion d7', mark_safe('&#9823;')),
+        ('czarny pion e7', mark_safe('&#9823;')), ('czarny pion f7', mark_safe('&#9823;')),
+        ('czarny pion g7', mark_safe('&#9823;')), ('czarny pion h7', mark_safe('&#9823;')),
      )
-    chessman = models.CharField(max_length=30, choices=chessman, default='pionek', verbose_name="Figura Szachowa")
+    chessman = models.CharField(max_length=30, choices=CHESSMAN_CHOICES, default='pionek', verbose_name="Figura Szachowa")
     mymove = []
     for a, b in itertools.product('abcdefgh', '12345678'):
         name = a + b
         mymove.append((name, name))
-    mytuple = tuple(mymove)
-    move = models.CharField(max_length=2, choices=mytuple, default='a1', verbose_name="Ruch na")
+    MYTUPLE = tuple(mymove)
+    move = models.CharField(max_length=2, choices=MYTUPLE, default='a1', verbose_name="Ruch na")
 
     class Meta:
         abstract = True
@@ -125,22 +161,28 @@ class State(OneMove):
     is_capture = models.CharField(max_length=9, choices=capture_choice, default='false', verbose_name="Czy zbity")
 
     def __str__(self):
-        return "ruch nr:{state_id} partia pomiędzy:{party}, figura: {chessman}" \
-            .format(party=self.party, state_id=self.state_id, chessman=self.chessman)
+        return mark_safe("ruch nr:{state_id} partia pomiędzy:{party}, figura: {chessman}, aktualne pole: {move}"\
+            .format(party=self.party, state_id=self.state_id,  chessman=self.get_chessman_display(), move=self.move))
 
     class Meta:
         verbose_name = "Stan"
-        verbose_name_plural = "Aktualne Stany Partii"
+        verbose_name_plural = "Aktualny Stan Parti"
 
 
 class Moves(OneMove):
-    move_id = models.AutoField(primary_key=True)
+    move_id = models.AutoField(primary_key=True)  #
     move_number = models.PositiveIntegerField(default=1, verbose_name="Numer ruchu w partii")
 
     def __str__(self):
-        return "ruch nr:{move_number} partia pomiędzy:{party}" \
-            .format(move_number=self.move_number, party=self.party)
-
+        return mark_safe("ruch nr:{move_number} partia pomiędzy:{party}, figura: {chessman}" \
+            .format(move_number=self.move_number, party=self.party, chessman=self.chessman))
+#get_chessman_display
     class Meta:
         verbose_name = "Ruch"
         verbose_name_plural = "Ruchy"
+
+    def save(self, *args, **kwargs):
+        super(Moves, self).save(*args, **kwargs)
+        State.objects.filter(chessman=self.chessman).update(move=self.move);
+        #State.objects.create(party_id=self.party_id, chessman=self.chessman, move=self.move, state_id=self.move_number, is_capture='false')
+
